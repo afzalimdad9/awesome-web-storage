@@ -8,6 +8,7 @@
 ## awesome-web-storage [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
 > Everything you need to know about Client-side Storage.
+
 ### Table of Contents
 
 - [Introduction](#introduction)
@@ -16,25 +17,26 @@
     - [Pros](#pros)
     - [Cons](#cons)
     - [API](#api)
-    - [Useful resources](#resources)
+    - [Useful resources](#resources---more-on-cookies)
 - [LocalStorage](#localstorage)
     - [Pros](#pros-1)
     - [Cons](#cons-1)
     - [API](#api-1)
-    - [Useful resources](#resources-1)
+    - [Useful resources](#resources---more-on-localstorage)
 - [SessionStorage](#sessionstorage)
     - [Pros](#pros-2)
     - [Cons](#cons-2)
     - [API](#api-2)
-    - [Useful resources](#resources-2)
-- [Comparson Table](comparison-table)
-- [PostMessage](#postmessage)
+    - [Useful resources](#resources---more-on-sessionstorage)
+- [Comparison Table](comparison-table)
+- [PostMessage](#worth-mentioning-api-for-tackling-cross-origin-restriction)
     - [Pros](#pros-3)
     - [Cons](#cons-3)
     - [API](#api-3)
-    - [Useful resources](#resources-3)
+    - [Security concerns](#security-concerns)
+    - [Useful resources](#resources---more-on-postmessage)
 - [FAQs](#faqs)
-- [Contributing](#contributing)
+- [Contributing](#contributing-guidelines)
 - [License](#license)
 
 ### Introduction
@@ -64,10 +66,13 @@ The two mechanisms within Web Storage are as follows:
 
 **[Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage)**
 > Allows you to set, retrieve and remove data for a specific domain and storage type (session or local.)
+
 **[Window](https://developer.mozilla.org/en-US/docs/Web/API/Window)**
 > The Web Storage API extends the `Window` object with two new properties — `Window.sessionStorage` and `Window.localStorage` — which provide access to the current domain's session and local Storage objects respectively, and a `Window.onstorage` event handler that fires when a storage area changes (e.g. a new item is stored.)
+
 **[StorageEvent](https://developer.mozilla.org/en-US/docs/Web/API/StorageEvent)**
 > The storage event is fired on a document's Window object when a storage area changes.
+
 ### Browser Support
 
 | [<img src="media/edge.png" alt="IE / Edge" width="16px" height="16px" />](https://caniuse.com/#search=storage)</br> IE / Edge | [<img src="media/firefox.png" alt="Firefox" width="16px" height="16px" />](https://caniuse.com/#search=storage)</br> Firefox | [<img src="media/chrome.png" alt="Chrome" width="16px" height="16px" />](https://caniuse.com/#search=storage)</br> Chrome | [<img src="media/safari.png" alt="Safari" width="16px" height="16px" />](https://caniuse.com/#search=storage)</br> Safari | [<img src="media/opera.png" alt="Opera" width="16px" height="16px" />](https://caniuse.com/#search=storage)</br> Opera |
@@ -81,6 +86,7 @@ Following are various storage techniques which HTML5 storage provides. Each tech
 #### [Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
 
 > An `HTTP cookie` (web cookie, browser cookie) is a small piece of data that a server sends to the user's web browser. The browser may store it and send it back with the next request to the same server. Typically, it's used to tell if two requests came from the same browser — keeping a user logged-in, for example. It remembers stateful information for the [stateless](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview#HTTP_is_stateless_but_not_sessionless) HTTP protocol.
+
 ##### Pros:
 
 * Session Management - Easy to use with logins, shopping carts, game scores, or anything else the server should remember
@@ -147,10 +153,12 @@ Following are various storage techniques which HTML5 storage provides. Each tech
     - [Cookie Inspector](https://chrome.google.com/webstore/detail/cookie-inspector/jgbbilmfbammlbbhmmgaagdkbkepnijn?hl=en)(For Chrome) - Edit and create cookies right in the Developer Tools.
     - [EditThisCookie](https://addons.mozilla.org/en-US/firefox/addon/editthiscookieaddon/)(For Firefox)
     - [Cookies Manager+](https://addons.mozilla.org/en-US/firefox/addon/cookies-manager-plus/) - To view, edit and create new cookies.
+    - [Vanilla Cookie Manager](https://chrome.google.com/webstore/detail/vanilla-cookie-manager/gieohaicffldbmiilohhggbidhephnjj?hl=en)(For Chrome) - A Cookie Whitelist Manager that helps protect your privacy. Automatically removes unwanted cookies.
 
 #### [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
 
 > The read-only `localStorage` property allows you to access a `Storage` object for the `Document`'s origin; the stored data is saved across browser sessions. `localStorage` is similar to `sessionStorage`, except that while data stored in `localStorage` has no expiration time, data stored in `sessionStorage` gets cleared when the page session ends — that is, when the page is closed.
+
 ##### Pros:
 
 * If you look at the Mozilla source code it can be seen that 5120KB (5MB which equals 2.5 Million characters on Chrome) is the default storage size for an entire domain. This gives you considerably more space to work with than a typical 4KB cookie.
@@ -243,6 +251,7 @@ Following are various storage techniques which HTML5 storage provides. Each tech
 #### [sessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)
 
 > The `sessionStorage` property allows you to access a session `Storage` object for the current origin. sessionStorage is similar to `Window.localStorage`, the only difference is while data stored in localStorage has no expiration set, data stored in sessionStorage gets cleared when the page session ends. A page session lasts for as long as the browser is open and survives over page reloads and restores. **Opening a page in a new tab or window will cause a new session to be initiated**, which differs from how session cookies work.
+
 ##### Pros:
 
 * [Same as localStorage](#api-1)
@@ -344,11 +353,12 @@ Following are various storage techniques which HTML5 storage provides. Each tech
 | **Size limits info**              | [limit](http://browsercookielimits.squawky.net/) | [limit](https://arty.name/localstorage.html) | [limit](https://stackoverflow.com/questions/15840976/how-large-is-html5-session-storage)
 
 
-#### Worth mentioning API for cross-origin restriction
+#### Worth mentioning API for tackling cross-origin restriction
 
 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
 
 > One very interesting API, PostMessage is not a web-storage technique but it's the most efficient and reliable way of communicating between `cross-origin` browser windows/tabs. Along with web-storage APIs, it overcomes the web-storage restrictions of cross-origin.
+
 ##### Pros:
 
 * Safely enables cross-origin policy communication.
@@ -361,11 +371,47 @@ Following are various storage techniques which HTML5 storage provides. Each tech
 
 * Security concerns - Sending strings via postMessage is that you will pick up other postMessage events published by other JavaScript plugins, so be sure to implement a targetOrigin and a sanity check for the data being passed on to the messages listener.
 
+##### API:
+
+```js
+otherWindow.postMessage(message, targetOrigin, [transfer]);
+```
+
+*otherWindow* - A reference to another window; such a reference may be obtained, for example, using the `contentWindow` property of an `iframe` element, the object returned by [window.open](https://developer.mozilla.org/en-US/docs/Web/API/Window/open), or by named or numeric index on [Window.frames](https://developer.mozilla.org/en-US/docs/Web/API/Window/frames), if you're trying to start the communication from iframe to [parent](https://developer.mozilla.org/en-US/docs/Web/API/Window/parent) window then parent is also a valid reference
+
+*message* - Data to be sent to the other window. The data is serialized using the [structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm). This means you can pass a broad variety of data objects safely to the destination window without having to serialize them yourself. [1]
+
+*targetOrigin* - Specifies what the origin of `otherWindow` must be for the event to be dispatched, either as the literal string `"*"` (indicating no preference) or as a URI. If at the time the event is scheduled to be dispatched the scheme, hostname, or port of otherWindow's document does not match that provided in `targetOrigin`, the event will not be dispatched; only if all three match will the event be dispatched. This mechanism provides control over where messages are sent; for example, if `postMessage()` was used to transmit a password, it would be absolutely critical that this argument be a URI whose origin is the same as the intended receiver of the message containing the password, to prevent interception of the password by a malicious third party. **Always provide a specific targetOrigin, not `*`, if you know where the other window's document should be located. Failing to provide a specific target discloses the data you send to any interested malicious site.**
+
+*transfer(Optional)* -  Is a sequence of [Transferable](https://developer.mozilla.org/en-US/docs/Web/API/Transferable) objects that are transferred with the message. The ownership of these objects is given to the destination side and they are no longer usable on the sending side.
+
+##### Security concerns
+
+**If you do not expect to receive messages from other sites, do not add any event listeners for `message` events**. This is a completely foolproof way to avoid security problems.
+
+If you do expect to receive messages from other sites, **always verify the sender's identity** using the `origin` and possibly `source` properties. Any window (including, for example, `http://evil.example.com)` can send a message to any other window, and you have no guarantees that an unknown sender will not send malicious messages. Having verified identity, however, you still should **always verify the syntax of the received message**. Otherwise, a security hole in the site you trusted to send only trusted messages could then open a cross-site scripting hole in your site.
+
+**Always specify an exact target origin, not `*`, when you use postMessage to send data to other windows.** A malicious site can change the location of the window without your knowledge, and therefore it can intercept the data sent using `postMessage`.
+
+##### Resources - more on postMessage:
+
+- Blogs
+	- [HTML5's window.postMessage API](https://davidwalsh.name/window-postmessage)
+	- [Cross-Domain Messaging With postMessage](http://blog.teamtreehouse.com/cross-domain-messaging-with-postmessage)
+	- [The pitfalls of postMessage](https://labs.detectify.com/2016/12/08/the-pitfalls-of-postmessage/)
+	- [XSS and App Security through HTML5's PostMessage()](https://community.saas.hpe.com/t5/Protect-Your-Assets/XSS-and-App-Security-through-HTML5-s-PostMessage/ba-p/266645#.WfRDnBNL_GI)
+- Libraries
+	- [postmate](https://github.com/dollarshaveclub/postmate) - A powerful, simple, promise-based postMessage library.
+	- [across-tabs](https://github.com/wingify/across-tabs) - Easy communication between cross-origin browser tabs.
+- Browser Extensions
+	- [postMessage debugger](https://chrome.google.com/webstore/detail/postmessage-debugger/kjfjellokbmlooidpiaolkpmghbladpi?hl=en) - This extension prints messages sent with postMessage to the console.
+
 ### FAQs
 
 1. How to store data that works Cross-Origin too?
 
     > A combination of `postMessage and localStorage / sessionStorage`
+
     Using postMessage to communicate between multiple tabs and at the same time using localStorage/sessionStorage in all the newly opened tabs/windows to persist data being passed. Data will be persisted as long as the tabs/windows remain open in case of sessionStorage and in the case of localStorage unless the data is deleted by the system or manually flushing it using dev tools. So, even if the opener tab/window gets closed, the opened tabs/windows will have the entire data even after getting refreshed.
 
     - [across-tabs](https://github.com/wingify/across-tabs/) - Easy communication between cross-origin browser tabs
